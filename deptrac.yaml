@@ -1,0 +1,85 @@
+deptrac:
+    paths:
+        - ./src
+        - ./bin
+    exclude_files: ~
+    analyser:
+        internal_tag: "@internal"
+    layers:
+        -   name: Token
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Token\\.*$'
+        -   name: Lexer
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Lexer\\.*$'
+        -   name: Parser
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Parser\\.*$'
+        -   name: Node
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Node\\.*$'
+        -   name: SysObject
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\SysObject\\.*$'
+        -   name: Evaluator
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Evaluator\\.*$'
+        -   name: Repl
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Repl\\.*$'
+        -   name: UtilsChar
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Utils\\Char\\.*$'
+        -   name: UtilsJson
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Utils\\Json\\.*$'
+        -   name: UtilsOption
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Utils\\Option\\.*$'
+        -   name: UtilsString
+            collectors:
+                -   type: classLike
+                    value: '^Elfennol\\MonkeyPhp\\Utils\\String\\.*$'
+    ruleset:
+        Lexer:
+            - Token
+            - UtilsChar
+            - UtilsOption
+            - UtilsString
+        Parser:
+            - Token
+            - Lexer
+            - Node
+            - UtilsJson
+            - UtilsOption
+        Node:
+            - Token
+            - UtilsJson
+            - UtilsOption
+        Evaluator:
+            - Token
+            - Node
+            - SysObject
+            - UtilsOption
+        SysObject:
+            - Token
+            - Node
+            - UtilsOption
+        Repl:
+            - Token
+            - Lexer
+            - Parser
+            - Evaluator
+            - SysObject
+            - UtilsOption
+            - UtilsString

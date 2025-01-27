@@ -1,0 +1,11 @@
+parameters:
+    level: 10
+    paths:
+        - src
+        - bin
+        - tests
+    bootstrapFiles:
+        - vendor/autoload.php
+        - tools/phpunit/vendor/autoload.php
+    ignoreErrors:
+        - '#PHPDoc tag @SuppressWarnings has invalid value#'
