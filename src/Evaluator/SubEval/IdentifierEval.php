@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Evaluator\SubEval;
 
-use Elfennol\MonkeyPhp\Evaluator\ContextInterface;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorExceptionType;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\IdentifierNode;
+use Elfennol\MonkeyPhp\SysObject\Context\ContextInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 
 readonly class IdentifierEval
@@ -16,6 +16,7 @@ readonly class IdentifierEval
     {
         $envObject = $context->env()->get($node->name());
         $builtin = $context->builtins()->get($node->name());
+        $macroBuiltin = $context->macroBuiltins()->get($node->name());
 
         if ($envObject->isSome()) {
             return $envObject->unwrap();
@@ -23,6 +24,10 @@ readonly class IdentifierEval
 
         if ($builtin->isSome()) {
             return $builtin->unwrap();
+        }
+
+        if ($macroBuiltin->isSome()) {
+            return $macroBuiltin->unwrap();
         }
 
         throw new EvaluatorException(

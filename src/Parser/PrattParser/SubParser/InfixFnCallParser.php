@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Elfennol\MonkeyPhp\Parser\PrattParser\SubParser;
 
 use Elfennol\MonkeyPhp\Lexer\LexerInterface;
-use Elfennol\MonkeyPhp\Node\CallableInterface;
+use Elfennol\MonkeyPhp\Node\CallableExprInterface;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\FnCallNode;
 use Elfennol\MonkeyPhp\Node\ExprNodeInterface;
 use Elfennol\MonkeyPhp\Parser\Eater\TokenEater;
@@ -30,7 +30,7 @@ readonly class InfixFnCallParser implements InfixParserInterface
         ExprNodeInterface $left,
         ExprParserInterface $exprParser
     ): ExprNodeInterface {
-        if (!$left instanceof CallableInterface) {
+        if (!$left instanceof CallableExprInterface) {
             throw new ParserException(ParserExceptionType::NodeTypeInvalid, [
                 'currentToken' => $lexer->current()->normalize(),
                 'leftNode' => $left->debug(),

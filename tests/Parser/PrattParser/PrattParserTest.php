@@ -32,7 +32,7 @@ class PrattParserTest extends TestCase
     public static function parseProvider(): array
     {
         return [
-            ['1 + -12 * 3 * 16 / 8 - 4**2 + 5**6**7 + 20! * (50 + 60) + 42 ', 'pratt_parser_result.json'],
+            ['1 + -12 * 3 * 16 / 8 - 4**2 + 5**6**7 + 20! * (50 + 60) + 42', 'pratt_parser_result.json'],
             ['foo + true + !false + 10 > 5 + 6 + 1 < 2 + 3 == 4 != 3', 'pratt_parser_ident_bool_result.json'],
             ['6 * (0 + (2 + 3 * (4 + 5))) + 42', 'pratt_parser_grouped_result.json'],
             ['1 + if (x > 10) { 10 } else { 11 } + 42', 'pratt_parser_if_result.json'],
@@ -46,6 +46,7 @@ class PrattParserTest extends TestCase
             ['[] + [1] + [1 + 2, 3]', 'pratt_parser_array_result.json'],
             ['[1 + 2, 3][1] + foo[1] + foo()[1]', 'pratt_parser_index_result.json'],
             ['{} + { "foo": "bar" } + { "foo": "bar", 1: "int", true: "bool" }', 'pratt_parser_hashmap_result.json'],
+            ['macro(x, y) { x + y; }', 'pratt_parser_macro_result.json'],
         ];
     }
 

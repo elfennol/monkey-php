@@ -38,6 +38,14 @@ readonly class BlockNode implements StmtListNodeInterface
     }
 
     /**
+     * @param StmtNodeInterface[] $stmts
+     */
+    public function buildWith(array $stmts): BlockNode
+    {
+        return new BlockNode($this->token, $stmts);
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array

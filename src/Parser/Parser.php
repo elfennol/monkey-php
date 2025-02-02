@@ -6,7 +6,7 @@ namespace Elfennol\MonkeyPhp\Parser;
 
 use Elfennol\MonkeyPhp\Lexer\LexerInterface;
 use Elfennol\MonkeyPhp\Node\Catalog\ProgramNode;
-use Elfennol\MonkeyPhp\Node\NodeInterface;
+use Elfennol\MonkeyPhp\Node\ProgramNodeInterface;
 use Elfennol\MonkeyPhp\Node\StmtNodeInterface;
 use Elfennol\MonkeyPhp\Token\TokenType;
 
@@ -18,14 +18,14 @@ readonly class Parser implements ParserInterface
     ) {
     }
 
-    public function parse(LexerInterface $lexer): NodeInterface
+    public function parse(LexerInterface $lexer): ProgramNodeInterface
     {
         $lexer->rewind();
 
         return $this->program($lexer);
     }
 
-    private function program(LexerInterface $lexer): NodeInterface
+    private function program(LexerInterface $lexer): ProgramNodeInterface
     {
         return new ProgramNode($this->stmts($lexer));
     }

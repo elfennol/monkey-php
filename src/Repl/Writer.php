@@ -13,9 +13,9 @@ use Stringable;
 
 readonly class Writer
 {
-    private const BANNER = 'Monkey programming language.';
-    private const PROMPT = 'monkey > ';
-    private const ERROR_PREFIX = 'Monkey error:';
+    private const string BANNER = 'Monkey programming language.';
+    private const string PROMPT = 'monkey > ';
+    private const string ERROR_PREFIX = 'Monkey error:';
 
     public function displayBanner(): void
     {

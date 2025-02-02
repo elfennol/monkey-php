@@ -14,7 +14,7 @@ readonly class BindingPowerSet
     public const MIN = 0;
 
     /** @var array<string, array{0: int}> */
-    private const PREFIX = [
+    private const array PREFIX = [
         TokenType::Int->value => [0],
         TokenType::String->value => [0],
         TokenType::Identifier->value => [0],
@@ -28,12 +28,13 @@ readonly class BindingPowerSet
         TokenType::Lbrace->value => [4000],
         TokenType::Lparen->value => [4000],
         TokenType::Lbracket->value => [4000],
+        TokenType::Macro->value => [4000],
     ];
 
     // Left associativity: left binding power < right binding power.
     // Convention: left binding power + 1 = right binding power
     /** @var array<string, array{0: int, 1: int}> */
-    private const INFIX_LEFT = [
+    private const array INFIX_LEFT = [
         TokenType::Plus->value => [400, 401],
         TokenType::Minus->value => [400, 401],
         TokenType::Asterisk->value => [500, 501],
@@ -50,15 +51,15 @@ readonly class BindingPowerSet
     // Right associativity : left binding power > right binding power.
     // Convention: left binding power = right binding power + 1
     /** @var array<string, array{0: int, 1: int}> */
-    private const INFIX_RIGHT = [
+    private const array INFIX_RIGHT = [
         TokenType::DoubleAsterisk->value => [3001, 3000],
     ];
 
     /** @var array<string, array{0: int, 1: int}> */
-    private const INFIX = [...self::INFIX_LEFT, ...self::INFIX_RIGHT];
+    private const array INFIX = [...self::INFIX_LEFT, ...self::INFIX_RIGHT];
 
     /** @var array<string, array{0: int}> */
-    private const POSTFIX = [
+    private const array POSTFIX = [
         TokenType::Bang->value => [2000],
     ];
 

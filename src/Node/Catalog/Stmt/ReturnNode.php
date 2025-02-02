@@ -39,6 +39,14 @@ readonly class ReturnNode implements StmtNodeInterface
     }
 
     /**
+     * @param Option<ExprNodeInterface> $exprNode
+     */
+    public function buildWith(Option $exprNode): ReturnNode
+    {
+        return new ReturnNode($this->token, $exprNode);
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array

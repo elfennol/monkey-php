@@ -40,6 +40,11 @@ readonly class LetNode implements StmtNodeInterface
         return $this->identifierNode;
     }
 
+    public function buildWith(IdentifierNode $identifierNode, ExprNodeInterface $exprNode): LetNode
+    {
+        return new LetNode($this->token, $identifierNode, $exprNode);
+    }
+
     /**
      * @return array<string, mixed>
      */

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Elfennol\MonkeyPhp\SysObject\Environment;
+namespace Elfennol\MonkeyPhp\SysObject\Context;
 
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 use Elfennol\MonkeyPhp\Utils\Option\Option;

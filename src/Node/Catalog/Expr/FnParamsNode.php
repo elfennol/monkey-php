@@ -37,6 +37,14 @@ readonly class FnParamsNode implements NodeInterface
     }
 
     /**
+     * @param IdentifierNode[] $identifiers
+     */
+    public function buildWith(array $identifiers): FnParamsNode
+    {
+        return new FnParamsNode($this->token, $identifiers);
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array

@@ -52,6 +52,14 @@ readonly class IfNode implements ConditionalNodeInterface
     }
 
     /**
+     * @param Option<BlockNode> $alternative
+     */
+    public function buildWith(ExprNodeInterface $expr, BlockNode $consequence, Option $alternative): IfNode
+    {
+        return new IfNode($this->token, $expr, $consequence, $alternative);
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array

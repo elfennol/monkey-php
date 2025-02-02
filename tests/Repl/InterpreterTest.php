@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Tests\Repl;
 
-use Elfennol\MonkeyPhp\Evaluator\ContextInterface;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorInterface;
+use Elfennol\MonkeyPhp\Evaluator\Macro\MacroExpansion;
 use Elfennol\MonkeyPhp\Lexer\LexerBuilderInterface;
 use Elfennol\MonkeyPhp\Parser\ParserInterface;
 use Elfennol\MonkeyPhp\Repl\Interpreter;
 use Elfennol\MonkeyPhp\SysObject\Catalog\UnitSysObject;
+use Elfennol\MonkeyPhp\SysObject\Context\ContextInterface;
 use Elfennol\MonkeyPhp\Tests\EvaluatorFactoryTrait;
 use Elfennol\MonkeyPhp\Tests\LexerFactoryTrait;
+use Elfennol\MonkeyPhp\Tests\ModifierFactoryTrait;
 use Elfennol\MonkeyPhp\Tests\ParserFactoryTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -20,6 +22,7 @@ class InterpreterTest extends TestCase
     use EvaluatorFactoryTrait;
     use LexerFactoryTrait;
     use ParserFactoryTrait;
+    use ModifierFactoryTrait;
 
     private Interpreter $interpreter;
     private LexerBuilderInterface $lexerBuilder;
@@ -39,6 +42,7 @@ class InterpreterTest extends TestCase
             $this->parser,
             $this->evaluator,
             $this->context,
+            new MacroExpansion($this->createModifier(), $this->createEvaluator())
         );
     }
 

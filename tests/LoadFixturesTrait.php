@@ -4,6 +4,9 @@ namespace Elfennol\MonkeyPhp\Tests;
 
 use RuntimeException;
 
+/**
+ * @internal
+ */
 trait LoadFixturesTrait
 {
     public function loadFixture(string $fixture): string

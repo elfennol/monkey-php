@@ -20,6 +20,11 @@ readonly class Token implements JsonSerializable
         $this->debug = new Debug($this->line, $this->col);
     }
 
+    public function buildWith(TokenType $type, string $value): Token
+    {
+        return new Token($type, $value, $this->line, $this->col);
+    }
+
     /**
      * @return array{type: TokenType, value: string, debug: Debug}
      */

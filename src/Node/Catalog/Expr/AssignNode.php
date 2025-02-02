@@ -38,6 +38,11 @@ readonly class AssignNode implements ExprNodeInterface
         return $this->identifierNode;
     }
 
+    public function buildWith(IdentifierNode $identifierNode, ExprNodeInterface $exprNode): AssignNode
+    {
+        return new AssignNode($this->token, $identifierNode, $exprNode);
+    }
+
     /**
      * @return array<string, mixed>
      */

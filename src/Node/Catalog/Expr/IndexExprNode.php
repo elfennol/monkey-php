@@ -38,6 +38,11 @@ readonly class IndexExprNode implements ExprNodeInterface
         return $this->index;
     }
 
+    public function buildWith(ExprNodeInterface $left, ExprNodeInterface $index): IndexExprNode
+    {
+        return new IndexExprNode($this->token, $left, $index);
+    }
+
     /**
      * @return array<string, mixed>
      */

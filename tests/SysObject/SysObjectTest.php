@@ -12,10 +12,11 @@ use Elfennol\MonkeyPhp\SysObject\Catalog\FnSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\HashMapItemSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\HashMapSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\IntSysObject;
+use Elfennol\MonkeyPhp\SysObject\Catalog\MacroBuiltinSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\ReturnSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\StringSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\UnitSysObject;
-use Elfennol\MonkeyPhp\SysObject\Environment\Env;
+use Elfennol\MonkeyPhp\SysObject\Context\Env;
 use Elfennol\MonkeyPhp\SysObject\InvalidSysObjectException;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectType;
@@ -56,7 +57,7 @@ class SysObjectTest extends TestCase
             [new ArraySysObject([new StringSysObject('foo')]), SysObjectType::Array],
             [new BoolSysObject('true'), SysObjectType::Bool],
             [
-                new BuiltinSysObject(fn (SysObjectInterface ...$sysObject) => $sysObject[0] ?? new UnitSysObject()),
+                new BuiltinSysObject(fn () => new UnitSysObject()),
                 SysObjectType::Builtin
             ],
             [
@@ -69,6 +70,10 @@ class SysObjectTest extends TestCase
             ],
             [new HashMapSysObject([]), SysObjectType::HashMap],
             [new IntSysObject('42'), SysObjectType::Int],
+            [
+                new MacroBuiltinSysObject(fn () => new UnitSysObject()),
+                SysObjectType::MacroBuiltin
+            ],
             [new ReturnSysObject(new StringSysObject('foo')), SysObjectType::Return],
             [new UnitSysObject(), SysObjectType::Unit],
         ];

@@ -39,6 +39,11 @@ readonly class PostfixOpNode implements OpNodeInterface
         return $this->token->type;
     }
 
+    public function buildWith(ExprNodeInterface $operand): PostfixOpNode
+    {
+        return new PostfixOpNode($this->token, $operand);
+    }
+
     /**
      * @return array<string, mixed>
      */

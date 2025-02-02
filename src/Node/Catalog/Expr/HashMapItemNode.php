@@ -38,6 +38,11 @@ readonly class HashMapItemNode implements ExprNodeInterface
         return $this->value;
     }
 
+    public function buildWith(ExprNodeInterface $key, ExprNodeInterface $value): HashMapItemNode
+    {
+        return new HashMapItemNode($this->token, $key, $value);
+    }
+
     /**
      * @return array<string, mixed>
      */

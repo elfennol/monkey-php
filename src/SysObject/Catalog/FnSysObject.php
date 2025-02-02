@@ -6,7 +6,7 @@ namespace Elfennol\MonkeyPhp\SysObject\Catalog;
 
 use Elfennol\MonkeyPhp\Node\Catalog\BlockNode;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\IdentifierNode;
-use Elfennol\MonkeyPhp\SysObject\Environment\EnvInterface;
+use Elfennol\MonkeyPhp\SysObject\Context\EnvInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectType;
 

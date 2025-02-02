@@ -20,6 +20,7 @@ enum EvaluatorExceptionType
     case ExprNotCallable;
 
     case SysObjectInvalid;
+    case NodeInvalid;
     case NodeNotSupported;
     case InfixOpNotSupported;
     case PrefixOpNotSupported;

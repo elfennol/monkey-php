@@ -37,6 +37,14 @@ readonly class HashMapNode implements ExprNodeInterface
     }
 
     /**
+     * @param HashMapItemNode[] $elements
+     */
+    public function buildWith(array $elements): HashMapNode
+    {
+        return new HashMapNode($this->token, $elements);
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array

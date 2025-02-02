@@ -284,6 +284,35 @@ BOOL;
         );
     }
 
+    public function testMacro(): void
+    {
+        $input = 'macro(x, y) { x + y; };';
+
+        $expectedTokenTypes = [
+            [TokenType::Macro, 'macro'],
+            [TokenType::Lparen, '('],
+            [TokenType::Identifier, 'x'],
+            [TokenType::Comma, ','],
+            [TokenType::Identifier, 'y'],
+            [TokenType::Rparen, ')'],
+            [TokenType::Lbrace, '{'],
+            [TokenType::Identifier, 'x'],
+            [TokenType::Plus, '+'],
+            [TokenType::Identifier, 'y'],
+            [TokenType::Semicolon, ';'],
+            [TokenType::Rbrace, '}'],
+            [TokenType::Semicolon, ';'],
+
+            [TokenType::Eof, Char::Nul->value]
+        ];
+
+        $this->assertLexer(
+            $this->createLexer($input),
+            $expectedTokenTypes,
+            TokenType::Eof
+        );
+    }
+
     public function testPosition(): void
     {
         $input = <<<'INPUT'

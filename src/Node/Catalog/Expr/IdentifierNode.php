@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Node\Catalog\Expr;
 
-use Elfennol\MonkeyPhp\Node\CallableInterface;
+use Elfennol\MonkeyPhp\Node\CallableExprInterface;
 use Elfennol\MonkeyPhp\Node\ExprNodeInterface;
 use Elfennol\MonkeyPhp\Node\NodeType;
 use Elfennol\MonkeyPhp\Token\Token;
 use Elfennol\MonkeyPhp\Utils\Json\JsonKey;
 
-readonly class IdentifierNode implements ExprNodeInterface, CallableInterface
+readonly class IdentifierNode implements ExprNodeInterface, CallableExprInterface
 {
     public function __construct(private Token $token)
     {

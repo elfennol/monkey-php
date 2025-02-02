@@ -15,7 +15,7 @@ enum TokenType: string implements JsonSerializable
     //// Identifier ////
     case Identifier = '__identifier__';
 
-    //// Keyword (see TokenKeyword) ////
+    //// Keyword (see keywordCases) ////
     case Function = 'fn';
     case Let = 'let';
     case True = 'true';
@@ -23,12 +23,13 @@ enum TokenType: string implements JsonSerializable
     case If = 'if';
     case Else = 'else';
     case Return = 'return';
+    case Macro = 'macro';
 
     //// Literal ////
     case Int = '__int__';
     case String = '__string__';
 
-    //// Special string ////
+    //// Special string (see specialStringCases) ////
     // Operator //
     case Assign = '=';
     case Plus = '+';
@@ -65,6 +66,7 @@ enum TokenType: string implements JsonSerializable
             self::If,
             self::Else,
             self::Return,
+            self::Macro,
         ];
     }
 

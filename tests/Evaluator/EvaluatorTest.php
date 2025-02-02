@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Tests\Evaluator;
 
-use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorExceptionType;
-use Elfennol\MonkeyPhp\SysObject\AtomSysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\Catalog\ArraySysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\BoolSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\HashMapSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\IntSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\StringSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\UnitSysObject;
+use Elfennol\MonkeyPhp\Tests\EvaluatorAssertionTrait;
 use Elfennol\MonkeyPhp\Tests\EvaluatorFactoryTrait;
 use Elfennol\MonkeyPhp\Tests\LexerFactoryTrait;
 use Elfennol\MonkeyPhp\Tests\ParserFactoryTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Stringable;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
@@ -27,6 +25,7 @@ use Stringable;
 class EvaluatorTest extends TestCase
 {
     use LexerFactoryTrait;
+    use EvaluatorAssertionTrait;
     use EvaluatorFactoryTrait;
     use ParserFactoryTrait;
 
@@ -393,17 +392,17 @@ REDUCEFN;
         return [
             [
                 '[fn() {42}];',
-                EvaluatorExceptionType::NodeNotSupported,
+                EvaluatorExceptionType::NodeInvalid,
                 'Unable to evaluate array node: elements must be atom.'
             ],
             [
                 '{"foo": fn() {42}};',
-                EvaluatorExceptionType::NodeNotSupported,
+                EvaluatorExceptionType::NodeInvalid,
                 'Unable to evaluate hashmap value node: elements must be atom.'
             ],
             [
                 '{fn() {42}: "bar"};',
-                EvaluatorExceptionType::NodeNotSupported,
+                EvaluatorExceptionType::NodeInvalid,
                 'Unable to evaluate hashmap key node: elements must be atom.'
             ],
         ];
@@ -419,44 +418,5 @@ REDUCEFN;
             ['[1, 2][2];', EvaluatorExceptionType::WrongIndex, 'Index too big.'],
             ['{ "foo": "bar"}["baz"];', EvaluatorExceptionType::WrongIndex, 'Index not available.'],
         ];
-    }
-
-    private function assertEvaluator(string $input, ?string $expectedValue, string $expectedObject): void
-    {
-        if (!class_exists($expectedObject)) {
-            self::fail(sprintf('%s does not exist.', $expectedObject));
-        }
-
-        $parser = $this->createParser();
-        $nodes = $parser->parse($this->createLexer($input));
-        $sysObject = $this->createEvaluator()->evaluate($nodes, $this->createContext());
-
-        self::assertInstanceOf($expectedObject, $sysObject);
-
-        if ($sysObject instanceof AtomSysObjectInterface) {
-            self::assertSame($expectedValue, $sysObject->nodeValue());
-        }
-
-        if ($sysObject instanceof Stringable) {
-            self::assertSame($expectedValue, $sysObject->__toString());
-        }
-    }
-
-    private function assertEvaluatorException(
-        string $input,
-        EvaluatorExceptionType $exceptionType,
-        string $exceptionMsg
-    ): void {
-        $parser = $this->createParser();
-        $nodes = $parser->parse($this->createLexer($input));
-
-        try {
-            $this->createEvaluator()->evaluate($nodes, $this->createContext());
-            self::fail('Expected EvaluatorException');
-        } catch (EvaluatorException $evaluatorException) {
-            self::assertSame($exceptionMsg, $evaluatorException->getMessage());
-            self::assertSame($exceptionType, $evaluatorException->getType());
-            self::assertArrayHasKey('node', $evaluatorException->getContext());
-        }
     }
 }

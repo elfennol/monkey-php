@@ -31,6 +31,7 @@ use Elfennol\MonkeyPhp\Node\ConditionalNodeInterface;
 use Elfennol\MonkeyPhp\Node\NodeInterface;
 use Elfennol\MonkeyPhp\Node\OpNodeInterface;
 use Elfennol\MonkeyPhp\Node\StmtListNodeInterface;
+use Elfennol\MonkeyPhp\SysObject\Context\ContextInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 
 /**

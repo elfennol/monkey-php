@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Evaluator\SubEval;
 
-use Elfennol\MonkeyPhp\Evaluator\ContextInterface;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorInterface;
 use Elfennol\MonkeyPhp\Node\Catalog\BlockNode;
 use Elfennol\MonkeyPhp\Node\StmtListNodeInterface;
 use Elfennol\MonkeyPhp\SysObject\Catalog\UnitSysObject;
+use Elfennol\MonkeyPhp\SysObject\Context\ContextInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\TerminusSysObjectInterface;
 

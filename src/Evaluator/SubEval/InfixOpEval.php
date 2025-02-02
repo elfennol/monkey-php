@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Evaluator\SubEval;
 
-use Elfennol\MonkeyPhp\Evaluator\ContextInterface;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorExceptionType;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorInterface;
@@ -13,6 +12,7 @@ use Elfennol\MonkeyPhp\Node\Catalog\Expr\InfixOpNode;
 use Elfennol\MonkeyPhp\SysObject\Catalog\BoolSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\IntSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\StringSysObject;
+use Elfennol\MonkeyPhp\SysObject\Context\ContextInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 use Elfennol\MonkeyPhp\Token\TokenType;
 
