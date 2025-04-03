@@ -35,7 +35,7 @@ qa-vendor-remove: ## Remove vendors in the tools directory
 .PHONY: phpcs
 phpcs: ## Run phpcs with dry run
 	@echo "======== PHPCS ========"
-	tools/phpcs/vendor/bin/php-cs-fixer fix --dry-run -v
+	PHP_CS_FIXER_IGNORE_ENV=1 tools/phpcs/vendor/bin/php-cs-fixer fix --dry-run -v
 
 .PHONY: phpmd
 phpmd: ## Run phpmd

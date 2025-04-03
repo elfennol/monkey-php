@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Elfennol\MonkeyPhp\Node\Catalog;
 
 use Elfennol\MonkeyPhp\Node\NodeType;
-use Elfennol\MonkeyPhp\Node\StmtListNodeInterface;
+use Elfennol\MonkeyPhp\Node\ProgramNodeInterface;
 use Elfennol\MonkeyPhp\Node\StmtNodeInterface;
 use Elfennol\MonkeyPhp\Utils\Json\JsonKey;
 
-readonly class ProgramNode implements StmtListNodeInterface
+readonly class ProgramNode implements ProgramNodeInterface
 {
     /**
      * @param StmtNodeInterface[] $stmts
@@ -34,6 +34,11 @@ readonly class ProgramNode implements StmtListNodeInterface
     public function stmts(): array
     {
         return $this->stmts;
+    }
+
+    public function buildWith(array $stmts): ProgramNode
+    {
+        return new ProgramNode($stmts);
     }
 
     /**

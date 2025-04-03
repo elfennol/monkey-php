@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Node\Catalog\Expr;
 
-use Elfennol\MonkeyPhp\Node\CallableInterface;
+use Elfennol\MonkeyPhp\Node\CallableExprInterface;
 use Elfennol\MonkeyPhp\Node\ExprNodeInterface;
 use Elfennol\MonkeyPhp\Node\NodeType;
 use Elfennol\MonkeyPhp\Token\Token;
 use Elfennol\MonkeyPhp\Utils\Json\JsonKey;
+use Elfennol\MonkeyPhp\Utils\Option\None;
+use Elfennol\MonkeyPhp\Utils\Option\Option;
+use Elfennol\MonkeyPhp\Utils\Option\Some;
 
 readonly class FnCallNode implements ExprNodeInterface
 {
@@ -17,7 +20,7 @@ readonly class FnCallNode implements ExprNodeInterface
      */
     public function __construct(
         private Token $token,
-        private CallableInterface&ExprNodeInterface $fnExpr,
+        private CallableExprInterface $fnExpr,
         private array $fnArgs,
     ) {
     }
@@ -32,7 +35,7 @@ readonly class FnCallNode implements ExprNodeInterface
         return ['node' => $this->type(), 'nearToken' => $this->token];
     }
 
-    public function fnExpr(): CallableInterface&ExprNodeInterface
+    public function fnExpr(): CallableExprInterface
     {
         return $this->fnExpr;
     }
@@ -43,6 +46,22 @@ readonly class FnCallNode implements ExprNodeInterface
     public function fnArgs(): array
     {
         return $this->fnArgs;
+    }
+
+    /**
+     * @return Option<IdentifierNode>
+     */
+    public function identifier(): Option
+    {
+        return $this->fnExpr instanceof IdentifierNode ? new Some($this->fnExpr) : new None();
+    }
+
+    /**
+     * @param ExprNodeInterface[] $fnArgs
+     */
+    public function buildWith(CallableExprInterface $fnExpr, array $fnArgs): FnCallNode
+    {
+        return new FnCallNode($this->token, $fnExpr, $fnArgs);
     }
 
     /**

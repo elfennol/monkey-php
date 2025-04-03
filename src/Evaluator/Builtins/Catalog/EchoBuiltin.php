@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Evaluator\Builtins\Catalog;
 
+use Elfennol\MonkeyPhp\Evaluator\BuiltinInterface;
 use Elfennol\MonkeyPhp\Evaluator\Builtins\BuiltinName;
 use Elfennol\MonkeyPhp\Evaluator\Builtins\Validator;
 use Elfennol\MonkeyPhp\SysObject\AtomSysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\Catalog\UnitSysObject;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
 
-readonly class EchoBuiltin
+readonly class EchoBuiltin implements BuiltinInterface
 {
     public function __construct(private Validator $validator)
     {

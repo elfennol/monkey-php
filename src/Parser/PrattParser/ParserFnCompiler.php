@@ -57,6 +57,7 @@ readonly class ParserFnCompiler
                 TokenType::Lparen->value => $this->prefixGroupedParser,
                 TokenType::If->value => $this->prefixIfParser,
                 TokenType::Function->value => $this->prefixFnParser,
+                TokenType::Macro->value => $this->prefixFnParser,
                 TokenType::Lbracket->value => $this->prefixArrayParser,
                 TokenType::Lbrace->value => $this->prefixHashMapParser,
             ],

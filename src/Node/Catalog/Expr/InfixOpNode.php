@@ -45,6 +45,11 @@ readonly class InfixOpNode implements OpNodeInterface
         return $this->token->type;
     }
 
+    public function buildWith(ExprNodeInterface $leftOperand, ExprNodeInterface $rightOperand): InfixOpNode
+    {
+        return new InfixOpNode($this->token, $leftOperand, $rightOperand);
+    }
+
     /**
      * @return array<string, mixed>
      */

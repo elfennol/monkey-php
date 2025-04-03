@@ -9,10 +9,12 @@ use Elfennol\MonkeyPhp\Node\Catalog\BlockNode;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\FnNode;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\FnParamsNode;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\IdentifierNode;
+use Elfennol\MonkeyPhp\Node\Catalog\Expr\MacroNode;
 use Elfennol\MonkeyPhp\Node\ExprNodeInterface;
 use Elfennol\MonkeyPhp\Parser\Eater\TokenEater;
 use Elfennol\MonkeyPhp\Parser\ExprParserInterface;
 use Elfennol\MonkeyPhp\Parser\SubParser\BlockStmtParser;
+use Elfennol\MonkeyPhp\Token\Token;
 use Elfennol\MonkeyPhp\Token\TokenType;
 
 readonly class PrefixFnParser implements PrefixParserInterface
@@ -29,11 +31,13 @@ readonly class PrefixFnParser implements PrefixParserInterface
     public function parse(LexerInterface $lexer, int $rightBp, ExprParserInterface $exprParser): ExprNodeInterface
     {
         $nearToken = $lexer->current();
-        $this->tokenEater->eat(TokenType::Function, $lexer);
+
+        $this->eatNearToken($nearToken, $lexer);
+
         $fnParams = new FnParamsNode($nearToken, $this->parseFnParams($lexer));
         $block = new BlockNode($nearToken, $this->blockStmtParser->parse($lexer, $exprParser));
 
-        return new FnNode($nearToken, $fnParams, $block);
+        return $this->makeNode($nearToken, $fnParams, $block);
     }
 
     /**
@@ -56,5 +60,25 @@ readonly class PrefixFnParser implements PrefixParserInterface
         $this->tokenEater->eat(TokenType::Rparen, $lexer);
 
         return $params;
+    }
+
+    private function eatNearToken(Token $nearToken, LexerInterface $lexer): void
+    {
+        if (TokenType::Macro === $nearToken->type) {
+            $this->tokenEater->eat(TokenType::Macro, $lexer);
+
+            return;
+        }
+
+        $this->tokenEater->eat(TokenType::Function, $lexer);
+    }
+
+    private function makeNode(Token $nearToken, FnParamsNode $fnParams, BlockNode $block): ExprNodeInterface
+    {
+        if (TokenType::Macro === $nearToken->type) {
+            return new MacroNode($nearToken, $fnParams, $block);
+        }
+
+        return new FnNode($nearToken, $fnParams, $block);
     }
 }

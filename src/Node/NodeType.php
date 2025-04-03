@@ -9,11 +9,8 @@ use JsonSerializable;
 enum NodeType implements JsonSerializable
 {
     case Program;
-
     case BlockStmt;
-    case BlockConsequenceStmt;
-    case BlockAlternativeStmt;
-    case BlockAlternativeConditionStmt;
+    case Macro;
 
     case Array;
     case Bool;

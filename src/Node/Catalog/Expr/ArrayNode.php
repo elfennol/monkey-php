@@ -37,6 +37,14 @@ readonly class ArrayNode implements ExprNodeInterface
     }
 
     /**
+     * @param ExprNodeInterface[] $elements
+     */
+    public function buildWith(array $elements): ArrayNode
+    {
+        return new ArrayNode($this->token, $elements);
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize(): array

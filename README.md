@@ -52,9 +52,8 @@ make help
 
 ### Unit tests
 
-Tips: to see the json structure more clearly, copy the json and paste it onto https://jsoncrack.com/editor.
+Tips: to see the json structure more clearly, copy the json and paste it onto https://omute.net/editor.
 
 ## TODO
 
-- Implement Macro System: https://interpreterbook.com/lost/
-- Implement Compiler: https://compilerbook.com/
+- [ ] Implement Compiler: https://compilerbook.com/

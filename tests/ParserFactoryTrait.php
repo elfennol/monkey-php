@@ -28,6 +28,9 @@ use Elfennol\MonkeyPhp\Parser\SubParser\LetParser;
 use Elfennol\MonkeyPhp\Parser\SubParser\ReturnParser;
 use Elfennol\MonkeyPhp\Parser\SubParser\StmtParser;
 
+/**
+ * @internal
+ */
 trait ParserFactoryTrait
 {
     private function createParser(): ParserInterface

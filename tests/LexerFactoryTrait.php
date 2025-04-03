@@ -10,6 +10,9 @@ use Elfennol\MonkeyPhp\Lexer\TokenTypeFinder;
 use Elfennol\MonkeyPhp\Utils\String\StringBuilder;
 use Elfennol\MonkeyPhp\Utils\String\StringUtils;
 
+/**
+ * @internal
+ */
 trait LexerFactoryTrait
 {
     private function createLexer(string $input): LexerInterface

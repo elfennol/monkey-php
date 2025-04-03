@@ -12,6 +12,8 @@ use Elfennol\MonkeyPhp\Evaluator\Builtins\Catalog\LenBuiltin;
 use Elfennol\MonkeyPhp\Evaluator\Builtins\Catalog\PushBuiltin;
 use Elfennol\MonkeyPhp\Evaluator\Builtins\Catalog\RestBuiltin;
 use Elfennol\MonkeyPhp\SysObject\Catalog\BuiltinSysObject;
+use Elfennol\MonkeyPhp\SysObject\Context\Builtins;
+use Elfennol\MonkeyPhp\SysObject\Context\BuiltinsInterface;
 
 readonly class BuiltinCompiler
 {
@@ -25,12 +27,9 @@ readonly class BuiltinCompiler
     ) {
     }
 
-    /**
-     * @returnBuiltins
-     */
-    public function compile(): Builtins
+    public function compile(): BuiltinsInterface
     {
-        $builtinClosures = [
+        $builtins = [
             BuiltinName::Echo->value => ($this->echoBuiltin)->exec(...),
             BuiltinName::First->value => ($this->firstBuiltin)->exec(...),
             BuiltinName::Last->value => ($this->lastBuiltin)->exec(...),
@@ -40,7 +39,7 @@ readonly class BuiltinCompiler
         ];
 
         return new Builtins(
-            array_map(fn (Closure $builtinClosure) => new BuiltinSysObject($builtinClosure), $builtinClosures)
+            array_map(static fn (Closure $builtinClosure) => new BuiltinSysObject($builtinClosure), $builtins)
         );
     }
 }

@@ -39,6 +39,11 @@ readonly class PrefixOpNode implements OpNodeInterface
         return $this->token->type;
     }
 
+    public function buildWith(ExprNodeInterface $operand): PrefixOpNode
+    {
+        return new PrefixOpNode($this->token, $operand);
+    }
+
     /**
      * @return array<string, mixed>
      */

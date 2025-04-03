@@ -6,7 +6,7 @@ namespace Elfennol\MonkeyPhp\Utils\String;
 
 class StringUtils
 {
-    private const ENCODING = 'UTF-8';
+    private const string ENCODING = 'UTF-8';
 
     public function len(string $input): int
     {

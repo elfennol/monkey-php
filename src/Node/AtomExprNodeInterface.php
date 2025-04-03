@@ -10,4 +10,6 @@ interface AtomExprNodeInterface extends ExprNodeInterface
      * @return string
      */
     public function value(): string;
+
+    public function buildWith(string $value): AtomExprNodeInterface;
 }

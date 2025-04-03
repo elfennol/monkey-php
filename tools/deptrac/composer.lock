@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b36f5b3d5529f7c6f84c981b6fae6c8",
+    "content-hash": "2ac2833710c09908495a05cdbb158237",
     "packages": [],
     "packages-dev": [
         {
@@ -50,9 +50,9 @@
                 "static analysis"
             ],
             "support": {
-                "issues": "https://github.com/qossmic/deptrac/issues",
                 "source": "https://github.com/qossmic/deptrac/tree/2.0.4"
             },
+            "abandoned": "deptrac/deptrac",
             "time": "2024-11-21T22:38:34+00:00"
         }
     ],
@@ -62,7 +62,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.2"
+        "php": ">=8.4"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
