@@ -7,9 +7,12 @@ namespace Elfennol\MonkeyPhp\SysObject\Catalog;
 use Elfennol\MonkeyPhp\SysObject\AtomSysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\InvalidSysObjectException;
 use Elfennol\MonkeyPhp\SysObject\SysObjectType;
+use Elfennol\MonkeyPhp\Utils\Type\HashableTrait;
 
 readonly class IntSysObject implements AtomSysObjectInterface
 {
+    use HashableTrait;
+
     private string $value;
 
     public function __construct(string $value)
@@ -39,5 +42,15 @@ readonly class IntSysObject implements AtomSysObjectInterface
     public function isPositive(): bool
     {
         return (int)$this->nodeValue() >= 0;
+    }
+
+    protected function hashableProperties(): array
+    {
+        return [$this->nodeValue()];
+    }
+
+    public function __toString(): string
+    {
+        return $this->nodeValue();
     }
 }

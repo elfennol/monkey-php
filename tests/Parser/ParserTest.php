@@ -75,6 +75,9 @@ JSON;
         self::assertJsonStringEqualsJsonString($expected, (string)$astEncoded);
     }
 
+    /**
+     * @param non-empty-string $exceptionMsg
+     */
     #[DataProvider('parserErrorProvider')]
     public function testParseWithError(
         string $input,

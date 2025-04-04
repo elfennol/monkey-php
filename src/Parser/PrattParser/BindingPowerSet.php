@@ -11,7 +11,7 @@ use Elfennol\MonkeyPhp\Utils\Option\Some;
 
 readonly class BindingPowerSet
 {
-    public const MIN = 0;
+    public const int MIN = 0;
 
     /** @var array<string, array{0: int}> */
     private const array PREFIX = [
@@ -48,7 +48,7 @@ readonly class BindingPowerSet
         TokenType::Assign->value => [0, 1],
     ];
 
-    // Right associativity : left binding power > right binding power.
+    // Right associativity: left binding power > right binding power.
     // Convention: left binding power = right binding power + 1
     /** @var array<string, array{0: int, 1: int}> */
     private const array INFIX_RIGHT = [
@@ -75,11 +75,6 @@ readonly class BindingPowerSet
         return new Some(self::PREFIX[$tokenType->value]);
     }
 
-    private function isPrefix(TokenType $tokenType): bool
-    {
-        return array_key_exists($tokenType->value, self::PREFIX);
-    }
-
     /**
      * @return Option<array{0: int, 1: int}>
      */
@@ -90,11 +85,6 @@ readonly class BindingPowerSet
         }
 
         return new Some(self::INFIX[$tokenType->value]);
-    }
-
-    private function isInfix(TokenType $tokenType): bool
-    {
-        return array_key_exists($tokenType->value, self::INFIX);
     }
 
     /**
@@ -109,6 +99,25 @@ readonly class BindingPowerSet
         return new Some(self::POSTFIX[$tokenType->value]);
     }
 
+    /**
+     * @phpstan-assert-if-true key-of<self::PREFIX> $tokenType->value
+     */
+    private function isPrefix(TokenType $tokenType): bool
+    {
+        return array_key_exists($tokenType->value, self::PREFIX);
+    }
+
+    /**
+     * @phpstan-assert-if-true key-of<self::INFIX> $tokenType->value
+     */
+    private function isInfix(TokenType $tokenType): bool
+    {
+        return array_key_exists($tokenType->value, self::INFIX);
+    }
+
+    /**
+     * @phpstan-assert-if-true key-of<self::POSTFIX> $tokenType->value
+     */
     private function isPostfix(TokenType $tokenType): bool
     {
         return array_key_exists($tokenType->value, self::POSTFIX);

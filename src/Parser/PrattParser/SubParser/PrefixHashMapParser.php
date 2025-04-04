@@ -41,7 +41,6 @@ readonly class PrefixHashMapParser implements PrefixParserInterface
             $this->tokenEater->eat(TokenType::Colon, $lexer);
             $value = $exprParser->parse($lexer, BindingPowerSet::MIN);
             $elements[] = new HashMapItemNode($nearToken, $key, $value);
-            /** @phpstan-ignore notIdentical.alwaysTrue */
             if (TokenType::Rbrace !== $lexer->current()->type) {
                 $this->tokenEater->eat(TokenType::Comma, $lexer);
             }

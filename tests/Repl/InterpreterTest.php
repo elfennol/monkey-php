@@ -48,6 +48,6 @@ class InterpreterTest extends TestCase
 
     public function testInterpreter(): void
     {
-        self::assertInstanceOf(UnitSysObject::class, $this->interpreter->read(''));
+        self::assertInstanceOf(UnitSysObject::class, $this->interpreter->read('')->sysObject);
     }
 }

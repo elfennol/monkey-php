@@ -8,9 +8,12 @@ use Elfennol\MonkeyPhp\SysObject\AtomSysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\InvalidSysObjectException;
 use Elfennol\MonkeyPhp\SysObject\SysObjectType;
 use Elfennol\MonkeyPhp\Token\TokenType;
+use Elfennol\MonkeyPhp\Utils\Type\HashableTrait;
 
 readonly class BoolSysObject implements AtomSysObjectInterface
 {
+    use HashableTrait;
+
     private string $value;
 
     public function __construct(string $value)
@@ -35,5 +38,15 @@ readonly class BoolSysObject implements AtomSysObjectInterface
     public function nativeValue(): bool
     {
         return TokenType::True->value === $this->value;
+    }
+
+    protected function hashableProperties(): array
+    {
+        return [$this->nodeValue()];
+    }
+
+    public function __toString(): string
+    {
+        return $this->nodeValue();
     }
 }

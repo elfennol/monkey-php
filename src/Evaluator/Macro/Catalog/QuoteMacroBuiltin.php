@@ -64,7 +64,6 @@ readonly class QuoteMacroBuiltin implements MacroBuiltinInterface
 
     /**
      * @phpstan-assert-if-true FnCallNode $node
-     * @phpstan-assert-if-true IdentifierNode $node->fnExpr()
      */
     private function isUnquoteCall(NodeInterface $node): bool
     {

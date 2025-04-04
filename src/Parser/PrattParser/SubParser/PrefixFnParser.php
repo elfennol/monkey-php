@@ -51,7 +51,6 @@ readonly class PrefixFnParser implements PrefixParserInterface
             $identifier = new IdentifierNode($lexer->current());
             $this->tokenEater->eat(TokenType::Identifier, $lexer);
             $params[] = $identifier;
-            /** @phpstan-ignore notIdentical.alwaysTrue */
             if (TokenType::Rparen !== $lexer->current()->type) {
                 $this->tokenEater->eat(TokenType::Comma, $lexer);
             }
