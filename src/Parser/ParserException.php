@@ -4,31 +4,12 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Parser;
 
-use Exception;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextException;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextExceptionInterface;
 
-class ParserException extends Exception
+/**
+ * @extends ContextException<ParserExceptionType>
+ */
+class ParserException extends ContextException implements ContextExceptionInterface
 {
-    /**
-     * @param array<string, mixed>|array{} $context
-     */
-    public function __construct(
-        private readonly ParserExceptionType $type,
-        private readonly array $context = [],
-        string $message = '',
-    ) {
-        parent::__construct($message);
-    }
-
-    public function getType(): ParserExceptionType
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return array<string, mixed>|array{}
-     */
-    public function getContext(): array
-    {
-        return $this->context;
-    }
 }

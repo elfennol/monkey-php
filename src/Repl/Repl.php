@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Repl;
 
-use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
-use Elfennol\MonkeyPhp\Lexer\LexerException;
-use Elfennol\MonkeyPhp\Parser\ParserException;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextExceptionInterface;
 
 readonly class Repl
 {
@@ -30,7 +28,7 @@ readonly class Repl
 
             try {
                 $sysObject = $this->interpreter->read($input);
-            } catch (LexerException|ParserException|EvaluatorException $exception) {
+            } catch (ContextExceptionInterface $exception) {
                 $this->writer->displayError($exception);
 
                 return;
@@ -51,7 +49,7 @@ readonly class Repl
 
             try {
                 $sysObject = $this->interpreter->read($input);
-            } catch (LexerException|ParserException|EvaluatorException $exception) {
+            } catch (ContextExceptionInterface $exception) {
                 $this->writer->displayError($exception);
 
                 continue;

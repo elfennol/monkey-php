@@ -1,7 +1,6 @@
 # PHP implementation of the [Monkey language](https://monkeylang.org/)
 
-Inspired from [Writing An Interpreter In Go](https://interpreterbook.com/). A high quality book if you want to know
-how an interpreter works.
+Inspired from [Writing An Interpreter In Go](https://interpreterbook.com/) and [Writing A Compiler In Go](https://compilerbook.com/). High quality books if you want to know how an interpreter and compiler work.
 
 **Warning:** implementation for learning purpose only (not ready for production).
 
@@ -53,7 +52,3 @@ make help
 ### Unit tests
 
 Tips: to see the json structure more clearly, copy the json and paste it onto https://omute.net/editor.
-
-## TODO
-
-- [ ] Implement Compiler: https://compilerbook.com/

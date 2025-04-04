@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Repl;
 
-use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
-use Elfennol\MonkeyPhp\Lexer\LexerException;
-use Elfennol\MonkeyPhp\Parser\ParserException;
 use Elfennol\MonkeyPhp\SysObject\AtomSysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\SysObjectInterface;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextExceptionInterface;
 use Stringable;
 
 readonly class Writer
@@ -41,7 +39,7 @@ readonly class Writer
         echo "\n";
     }
 
-    public function displayError(LexerException|ParserException|EvaluatorException $exception): void
+    public function displayError(ContextExceptionInterface $exception): void
     {
         echo sprintf("%s %s: %s", self::ERROR_PREFIX, $exception->getType()->name, $exception->getMessage());
         echo "\n";
