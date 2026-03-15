@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Repl;
 
-use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
-use Elfennol\MonkeyPhp\Lexer\LexerException;
-use Elfennol\MonkeyPhp\Parser\ParserException;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextExceptionInterface;
+use Elfennol\MonkeyPhp\Utils\Option\None;
 
 readonly class Repl
 {
     public function __construct(
-        private Interpreter $interpreter,
+        private EngineInterface $engine,
         private Reader $reader,
         private Writer $writer,
     ) {
@@ -29,19 +28,22 @@ readonly class Repl
             }
 
             try {
-                $sysObject = $this->interpreter->read($input);
-            } catch (LexerException|ParserException|EvaluatorException $exception) {
+                $engineResult = $this->engine->read($input);
+            } catch (ContextExceptionInterface $exception) {
                 $this->writer->displayError($exception);
 
                 return;
             }
 
-            $this->writer->display($sysObject);
+            $this->writer->display($engineResult->sysObject);
 
             return;
         }
 
         $this->writer->displayBanner();
+        $symbolTable = new None();
+        $constants = new None();
+        $globals = new None();
         while (true) {
             $input = $this->reader->read($this->writer->getPrompt());
             if (false === $input) {
@@ -50,14 +52,17 @@ readonly class Repl
             $this->reader->addHistory($input);
 
             try {
-                $sysObject = $this->interpreter->read($input);
-            } catch (LexerException|ParserException|EvaluatorException $exception) {
+                $engineResult = $this->engine->read($input, $symbolTable, $constants, $globals);
+                $symbolTable = $engineResult->symbolTable;
+                $constants = $engineResult->constants;
+                $globals = $engineResult->globals;
+            } catch (ContextExceptionInterface $exception) {
                 $this->writer->displayError($exception);
 
                 continue;
             }
 
-            $this->writer->display($sysObject);
+            $this->writer->display($engineResult->sysObject);
         }
     }
 }

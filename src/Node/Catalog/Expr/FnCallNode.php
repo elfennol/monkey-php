@@ -13,7 +13,7 @@ use Elfennol\MonkeyPhp\Utils\Option\None;
 use Elfennol\MonkeyPhp\Utils\Option\Option;
 use Elfennol\MonkeyPhp\Utils\Option\Some;
 
-readonly class FnCallNode implements ExprNodeInterface
+readonly class FnCallNode implements ExprNodeInterface, CallableExprInterface
 {
     /**
      * @param ExprNodeInterface[] $fnArgs

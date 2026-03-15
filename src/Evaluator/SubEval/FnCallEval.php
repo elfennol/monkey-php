@@ -7,6 +7,8 @@ namespace Elfennol\MonkeyPhp\Evaluator\SubEval;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorException;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorExceptionType;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorInterface;
+use Elfennol\MonkeyPhp\SysObject\Builtins\BuiltinException;
+use Elfennol\MonkeyPhp\SysObject\Builtins\BuiltinExceptionType;
 use Elfennol\MonkeyPhp\Node\Catalog\Expr\FnCallNode;
 use Elfennol\MonkeyPhp\SysObject\Catalog\BuiltinSysObject;
 use Elfennol\MonkeyPhp\SysObject\Catalog\FnSysObject;
@@ -70,6 +72,13 @@ readonly class FnCallEval
                 $exception->getType(),
                 array_merge(['node' => $node->debug()], $exception->getContext())
             );
+        } catch (BuiltinException $exception) {
+            $type = match ($exception->getType()) {
+                BuiltinExceptionType::FnWrongArgsNumber => EvaluatorExceptionType::FnWrongArgsNumber,
+                BuiltinExceptionType::FnWrongArgType    => EvaluatorExceptionType::FnWrongArgType,
+                BuiltinExceptionType::EmptySysObject    => EvaluatorExceptionType::EmptySysObject,
+            };
+            throw new EvaluatorException($type, array_merge(['node' => $node->debug()], $exception->getContext()));
         }
     }
 

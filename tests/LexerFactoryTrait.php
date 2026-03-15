@@ -2,11 +2,9 @@
 
 namespace Elfennol\MonkeyPhp\Tests;
 
-use Elfennol\MonkeyPhp\Lexer\LexerBuilder;
+use Elfennol\MonkeyPhp\ContainerBuilder;
 use Elfennol\MonkeyPhp\Lexer\LexerBuilderInterface;
 use Elfennol\MonkeyPhp\Lexer\LexerInterface;
-use Elfennol\MonkeyPhp\Lexer\TokenBuilder;
-use Elfennol\MonkeyPhp\Lexer\TokenTypeFinder;
 use Elfennol\MonkeyPhp\Utils\String\StringBuilder;
 use Elfennol\MonkeyPhp\Utils\String\StringUtils;
 
@@ -29,8 +27,6 @@ trait LexerFactoryTrait
 
     private function createLexerBuilder(): LexerBuilderInterface
     {
-        $tokenFinder = new TokenBuilder(new TokenTypeFinder());
-
-        return (new LexerBuilder($tokenFinder));
+        return new ContainerBuilder()->build()->get(LexerBuilderInterface::class);
     }
 }

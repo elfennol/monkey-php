@@ -4,31 +4,12 @@ declare(strict_types=1);
 
 namespace Elfennol\MonkeyPhp\Lexer;
 
-use Exception;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextException;
+use Elfennol\MonkeyPhp\Utils\Exception\ContextExceptionInterface;
 
-class LexerException extends Exception
+/**
+ * @extends ContextException<LexerExceptionType>
+ */
+class LexerException extends ContextException implements ContextExceptionInterface
 {
-    /**
-     * @param array<string, mixed>|array{} $context
-     */
-    public function __construct(
-        private readonly LexerExceptionType $type,
-        private readonly array $context = [],
-        string $message = '',
-    ) {
-        parent::__construct($message);
-    }
-
-    public function getType(): LexerExceptionType
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return array<string, mixed>|array{}
-     */
-    public function getContext(): array
-    {
-        return $this->context;
-    }
 }

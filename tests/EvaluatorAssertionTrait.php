@@ -9,7 +9,6 @@ use Elfennol\MonkeyPhp\Evaluator\EvaluatorExceptionType;
 use Elfennol\MonkeyPhp\Evaluator\EvaluatorInterface;
 use Elfennol\MonkeyPhp\Lexer\LexerInterface;
 use Elfennol\MonkeyPhp\Parser\ParserInterface;
-use Elfennol\MonkeyPhp\SysObject\AtomSysObjectInterface;
 use Elfennol\MonkeyPhp\SysObject\Context\ContextInterface;
 use Stringable;
 
@@ -43,10 +42,6 @@ trait EvaluatorAssertionTrait
         $sysObject = $this->createEvaluator()->evaluate($nodes, $this->createContext());
 
         self::assertInstanceOf($expectedObject, $sysObject);
-
-        if ($sysObject instanceof AtomSysObjectInterface) {
-            self::assertSame($expectedValue, $sysObject->nodeValue());
-        }
 
         if ($sysObject instanceof Stringable) {
             self::assertSame($expectedValue, $sysObject->__toString());

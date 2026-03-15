@@ -31,6 +31,6 @@ class OptionTest extends TestCase
     public function testNoneUnwrap(): void
     {
         $this->expectException(Exception::class);
-        (new None())->unwrap();
+        new None()->unwrap();
     }
 }

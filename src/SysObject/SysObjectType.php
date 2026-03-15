@@ -21,6 +21,8 @@ enum SysObjectType implements JsonSerializable
     case Quote;
     case MacroBuiltin;
     case Macro;
+    case CompiledFunction;
+    case Closure;
 
     case Return;
     case Unit;

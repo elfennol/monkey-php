@@ -19,8 +19,9 @@
     }
   ],
   "require": {
-    "php": ">=8.4",
+    "php": ">=8.5",
     "ext-mbstring": "*",
-    "ext-readline": "*"
+    "ext-readline": "*",
+    "psr/container": "^2.0"
   }
 }

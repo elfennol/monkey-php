@@ -1,0 +1,43 @@
+flowchart TD
+    INPUT["Source Code"]
+
+    INPUT --> LEXER["Lexer\ntoken stream"]
+    LEXER --> PARSER["Parser\nPrattParser"]
+    PARSER --> AST["AST\nProgramNode"]
+
+    AST --> FORK{{"Execution\nMode"}}
+
+    subgraph INTERP["Tree-Walking Interpreter"]
+        MACRO["Macro Expansion\ndefineMacros · expandMacros"]
+        EVA["Evaluator"]
+        CTX["Context\nEnv · Builtins · MacroBuiltins"]
+        MACRO --> EVA
+        EVA <-->|"scope"| CTX
+    end
+
+    subgraph COMPPATH["Compiler + VM"]
+        subgraph COMP["Compiler"]
+            CRULES["Compiler Rules"]
+            SYMTAB["Symbol Table\nGlobal · Local · Builtin · Free"]
+            CONSTPOOL["Constants Pool"]
+            CRULES <--> SYMTAB
+            CRULES <--> CONSTPOOL
+        end
+        BC["ByteCode\ninstructions · constants"]
+        subgraph VM["Virtual Machine"]
+            VMRULES["VM Rules\n(one per opcode)"]
+            STACK["Stack"]
+            GLOBALS["Globals"]
+            CALLSTACK["Call Stack\nFrame · closure"]
+            VMRULES <--> STACK
+            VMRULES <--> GLOBALS
+            VMRULES <--> CALLSTACK
+        end
+        COMP --> BC --> VM
+    end
+
+    FORK -->|"Interpreter mode"| MACRO
+    FORK -->|"Compiler mode"| COMPPATH
+
+    INTERP --> RESULT["SysObject\nInt · Bool · String · Array\nHashMap · Fn · Closure · Unit · …"]
+    COMPPATH --> RESULT

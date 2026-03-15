@@ -12,9 +12,6 @@ use Elfennol\MonkeyPhp\Utils\Option\None;
 use Elfennol\MonkeyPhp\Utils\Option\Option;
 use Elfennol\MonkeyPhp\Utils\Option\Some;
 
-/**
- * @internal
- */
 readonly class ParserFn
 {
     public function __construct(
