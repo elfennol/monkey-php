@@ -1,1 +1,0 @@
-Read `.claude/CLAUDE.md`.
